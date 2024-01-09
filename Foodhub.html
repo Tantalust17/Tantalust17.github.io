@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+  <img src="logo.png" alt="FoodHub Logo" id="logo">
+    <h1>FoodHub</h1>
+    <nav>
+      <ul>
+        <li><a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Foodhub.html">Home</a></li>
+	<li><a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Essentials.html">Essentials</a></li>
+        <li><a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Recipes.html">Recipes</a></li>
+        <li><a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/About%20us.html">About</a></li>
+        <li><a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Welcome to our Recipe Website</h2>
+      <p>Discover delicious and easy-to-make recipes for every occasion.</p>
+    </section>
+
+    <section>
+      <h2>Featured Recipes</h2>
+      <div class="recipe-card">
+        <img src="Aglio-olio-1-1.jpg" alt="Recipe 1">
+        <h3>Spaghetti Aglio-e-olio</h3>
+        <p>A classic Italian pasta dish with simple ingredients like garlic, olive oil, and red pepper flakes</p>
+        <a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Recipes.html#recipe1">Go to Recipe 1</a>
+      </div>
+
+
+      <div class="recipe-card">
+        <img src="Caprese-Salad-6.jpg" alt="Recipe 2">
+        <h3>Caprese Salad</h3>
+        <p>Fresh tomatoes, mozzarella, and basil drizzled with balsamic glaze. A refreshing and light salad.</p>
+        <a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Recipes.html#recipe2">Go to Recipe 2</a>
+      </div>
+
+
+      <div class="recipe-card">
+        <img src="Simply-Recipes-Easy-Banana-Bread-LEAD-2-2-63dd39af009945d58f5bf4c2ae8d6070.jpg" alt="Recipe 3">
+        <h3>Banana Bread</h3>
+        <p>A simple and delicious banana bread recipe, perfect for using up overripe bananas.</p>
+        <a href="file:///C:/Users/Lenovo%20S145/Desktop/website%20shizz/Recipes.html#recipe3">Go to Recipe 3</a>
+      </div>
+    </section>
+<!-- Add the following code after the "Featured Recipes" section -->
+
+<section>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+</section>
+<section>
+  <h2>Register</h2>
+  <form id="registerForm">
+    <label for="newUsername">Username:</label>
+    <input type="text" id="newUsername" name="newUsername" required>
+
+    <label for="newPassword">Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <button type="submit">Register</button>
+  </form>
+</section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2022 Foodhub All rights reserved.</p>
+  </footer>
+<script>
+  // Login Logic
+  document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    // Fetch user input
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Validate user input (you may want to perform more robust validation)
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
+
+    try {
+      // Simulate server-side authentication using a fetch request
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Login successful!");
+        // Redirect the user to the dashboard or another page
+      } else {
+        alert(data.message || "Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  });
+
+  // Registration Logic
+  document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    // Fetch user input
+    const newUsername = document.getElementById("newUsername").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Validate user input (you may want to perform more robust validation)
+    if (!newUsername || !newPassword || !confirmPassword) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match. Please try again.");
+      return;
+    }
+
+    try {
+      // Simulate server-side registration using a fetch request
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: newUsername, password: newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Registration successful!");
+        // Redirect the user to the dashboard or another page
+      } else {
+        alert(data.message || "Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  });
+</script>
+</body>
+</html>
